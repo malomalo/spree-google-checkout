@@ -77,7 +77,7 @@ class GoogleCheckoutNotificationController < ApplicationController
       :zipcode    =>  google_address.postal_code || '-'
     }
     address.attributes = address_attrs
-    address.save(false)
+    address.save(:validate => false)
     address  
   end
 
