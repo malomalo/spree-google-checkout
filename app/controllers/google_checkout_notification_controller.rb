@@ -41,9 +41,8 @@ class GoogleCheckoutNotificationController < ApplicationController
           @order.next while @order.errors.blank? && @order.state != "complete"
         end
         render :text => 'proccess Google4R::Checkout::NewOrderNotification' and return
-      end
 
-      if notification.is_a?(Google4R::Checkout::ChargeAmountNotification)
+      elsif notification.is_a?(Google4R::Checkout::ChargeAmountNotification)
         @order = Order.find_by_google_order_number(notification.google_order_number)
         payment = Payment.new(:amount => notification.latest_charge_amount, :payment_method_id => Billing::GoogleCheckout.current.id)
         payment.order = @order
@@ -51,8 +50,10 @@ class GoogleCheckoutNotificationController < ApplicationController
         payment.started_processing
         payment.complete
         render :text => 'proccess Google4R::Checkout::ChargeAmountNotification' and return
-      end
       
+      else
+        render :text => 'ignoring unknown notification type..', :status => 200 and return
+      end
     rescue Google4R::Checkout::UnknownNotificationType => e
       # This can happen if Google adds new commands and Google4R has not been
       # upgraded yet. It is not fatal.
