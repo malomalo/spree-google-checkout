@@ -15,6 +15,7 @@ OrdersController.class_eval do
           item.description = l.product.description
           item.unit_price = Money.new(100 * l.price, Billing::GoogleCheckout.current[:currency])    
           item.quantity = l.quantity
+          item.weight = Google4R::Checkout::Weight.new(l.product.weight)
         end
       end
       checkout_command.shopping_cart.private_data = { 'order_number' => @order.id } 
