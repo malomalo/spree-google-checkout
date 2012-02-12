@@ -18,8 +18,8 @@ module GoogleCheckoutHelper
     [img_src, params_str].join('?')
   end
 
-  def google_checkout_image(merchant_id, options)
-    image_tag(google_checkout_image_url, {:alt => 'Fast Checkout through Google', :height => 46, :width => 180}.merge(options))
+  def google_checkout_image(merchant_id, options={})
+    image_tag(google_checkout_image_url(merchant_id), {:alt => 'Fast Checkout through Google', :height => 46, :width => 180}.merge(options))
   end
 
 end
