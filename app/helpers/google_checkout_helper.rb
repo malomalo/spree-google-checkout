@@ -7,7 +7,7 @@ module GoogleCheckoutHelper
         :height => 46, :width => 180 )
   end
 
-  def google_checkout_image_url()
+  def google_checkout_image_url(merchant_id)
     img_src = Billing::GoogleCheckout.current[:use_sandbox] ?
       "http://sandbox.google.com/checkout/buttons/checkout.gif" :
       "https://checkout.google.com/buttons/checkout.gif"
@@ -18,7 +18,7 @@ module GoogleCheckoutHelper
     [img_src, params_str].join('?')
   end
 
-  def google_checkout_image(options)
+  def google_checkout_image(merchant_id, options)
     image_tag(google_checkout_image_url, {:alt => 'Fast Checkout through Google', :height => 46, :width => 180}.merge(options))
   end
 
