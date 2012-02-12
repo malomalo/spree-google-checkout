@@ -3,7 +3,7 @@ Deface::Override.new(
   :name => "google_checkout_outside_cart_form",
   :insert_after => "[data-hook='outside_cart_form'], #outside_cart_form[data-hook]",
   :partial => "shared/google_checkout_bar",
-  :disabled => false)
+  :disabled => true)
 
 
 Deface::Override.new(
